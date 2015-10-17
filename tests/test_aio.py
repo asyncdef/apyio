@@ -6,7 +6,7 @@ import io
 
 import pytest
 
-import aio
+import apyio
 
 
 def async_test(loop=None):
@@ -26,33 +26,33 @@ def async_test(loop=None):
 
 
 def test_string_io_produces_string_io():
-    stream = aio.StringIO()
-    assert isinstance(stream, aio.AsyncStringIOWrapper)
+    stream = apyio.StringIO()
+    assert isinstance(stream, apyio.AsyncStringIOWrapper)
     assert isinstance(stream._stream, io.StringIO)
 
 
 def test_bytes_io_produces_bytes_io():
-    stream = aio.BytesIO()
-    assert isinstance(stream, aio.AsyncBytesIOWrapper)
+    stream = apyio.BytesIO()
+    assert isinstance(stream, apyio.AsyncBytesIOWrapper)
     assert isinstance(stream._stream, io.BytesIO)
 
 
 def test_async_methods_return_coroutine():
-    stream = aio.StringIO()
+    stream = apyio.StringIO()
     coro = stream.read()
     assert hasattr(coro, '__await__')
 
 
 @async_test()
 async def test_async_methods_can_be_awaited():
-    stream = aio.StringIO()
+    stream = apyio.StringIO()
     value = await stream.read()
     assert value == ''
 
 
 @async_test()
 async def test_streams_are_async_iterable():
-    stream = aio.StringIO()
+    stream = apyio.StringIO()
     stream.writelines(('test\n', 'test2\n'))
     await stream.drain()
     await stream.seek(0)
@@ -68,6 +68,6 @@ async def test_streams_are_async_iterable():
 
 @async_test()
 async def test_streams_are_async_contexts(tmpdir):
-    async with aio.open(str(tmpdir.join('testfile.txt')), 'w') as test_file:
+    async with apyio.open(str(tmpdir.join('testfile.txt')), 'w') as test_file:
 
         assert test_file

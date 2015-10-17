@@ -1,6 +1,6 @@
 include README.rst
 include LICENSE
-recursive-include aio *
-recursive-exclude aio *.pyc
-recursive-exclude aio *.pyd
-recursive-exclude aio *.pyo
+recursive-include apyio *
+recursive-exclude apyio *.pyc
+recursive-exclude apyio *.pyd
+recursive-exclude apyio *.pyo

@@ -1,6 +1,6 @@
-===
-aio
-===
+=====
+apyio
+=====
 
 *Async wrappers for standard Python io streams.*
 
@@ -12,11 +12,11 @@ the Python `io` module:
 
 .. code-block:: python
 
-    import aio
+    import apyio
 
-    string_buff = aio.StringIO()
-    bytes_buff = aio.BytesIO()
-    file_handle = aio.open('somefile.txt', 'r')
+    string_buff = apyio.StringIO()
+    bytes_buff = apyio.BytesIO()
+    file_handle = apyio.open('somefile.txt', 'r')
 
 The `write`, `writelines`, and `close` methods are left as normal functions
 just as they are for the asyncio streams. However, any function which might
@@ -26,19 +26,19 @@ result in a read operation, such as `read`, `readline`, `readlines`, `read1`,
 
 .. code-block:: python
 
-    import aio
+    import apyio
 
-    async with aio.open('somefile.txt', 'w') as file_handle:
+    async with apyio.open('somefile.txt', 'w') as file_handle:
 
         file_handle.write('some data')
         await file_handle.drain()  # Same as flush().
 
-    async with aio.open('somefile.txt', 'r') as file_handle:
+    async with apyio.open('somefile.txt', 'r') as file_handle:
 
         data = await file_handle.read()
         print(data)
 
-    file_handle = aio.open('somefile.txt', 'r')
+    file_handle = apyio.open('somefile.txt', 'r')
     async for line in file_handle:
 
         print(line)
@@ -53,23 +53,23 @@ original, synchronous stream.
 .. code-block:: python
 
     import io
-    import aio
+    import apyio
 
     sync_stream = io.FileIO('somefile.txt', 'r')
-    async_stream = aio.AsyncFileIOWrapper(sync_stream)
+    async_stream = apyio.AsyncFileIOWrapper(sync_stream)
     print(sync_stream.readline())
     print((await async_stream.readline()))
 
 If a file was opened using the built-in `open()` function it may not be an
 instance of `io.FileIO`. Depending on the options given to `open()` different
 kinds of streams may be returned. To help with wrapping arbitrary `open()`
-return values use the `aio.wrap_file()` helper.
+return values use the `apyio.wrap_file()` helper.
 
 .. code-block:: python
 
-    import aio
+    import apyio
     file_handle = open('somefile.bin', 'r+b')
-    async_handle = aio.wrap_file(file_handle)
+    async_handle = apyio.wrap_file(file_handle)
 
 Testing
 =======
