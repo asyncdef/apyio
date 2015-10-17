@@ -8,10 +8,10 @@ install:
     - pip install -r test-requirements.txt
     - pip install -e ./
 script:
-    - if [[ ! "$(python --version 2>&1)" =~ Python\ (3\.6.*) ]]; then pep8 aio/; fi
+    - if [[ ! "$(python --version 2>&1)" =~ Python\ (3\.6.*) ]]; then pep8 apyio/; fi
     - if [[ ! "$(python --version 2>&1)" =~ Python\ (3\.6.*) ]]; then pep8 tests/; fi
-    - pep257 aio/
+    - pep257 apyio/
     - pep257 tests/
-    - pyflakes aio/
+    - pyflakes apyio/
     - pyflakes tests/
     - py.test tests/
