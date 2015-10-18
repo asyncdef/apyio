@@ -43,6 +43,11 @@ def test_async_methods_return_coroutine():
     assert hasattr(coro, '__await__')
 
 
+def test_sync_methods_dont_return_coroutine():
+    stream = apyio.BytesIO()
+    assert not hasattr(stream.write(b''), '__await__')
+
+
 @async_test()
 async def test_async_methods_can_be_awaited():
     stream = apyio.StringIO()
