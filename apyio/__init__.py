@@ -470,7 +470,7 @@ class AsyncBytesIOWrapper(AsyncBufferedIOBaseWrapper):
         """Read from the stream."""
         return self._stream.read1(size)
 
-    async def write(self, b):
+    def write(self, b):
         """Write to the stream."""
         return self._stream.write(b)
 
